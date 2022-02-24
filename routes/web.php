@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-
 Auth::routes();
 
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function () {
@@ -27,4 +23,8 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
     Route::resource('tags', 'TagsController');
 
 });
+
+Route::get('{any?}', function() {
+    return view('home');
+})->where('any', '.*');
 

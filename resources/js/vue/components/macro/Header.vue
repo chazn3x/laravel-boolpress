@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../sass/_variables.scss';
+@import '../../../../sass/_variables.scss';
 .header {
     width: 100%;
     padding: 1rem 0;
