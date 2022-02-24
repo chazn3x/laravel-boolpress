@@ -1993,15 +1993,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      tags: ''
+      tags: []
     };
   },
   created: function created() {
     var _this = this;
 
-    this.post.tags.forEach(function (tag, i) {
-      _this.tags += tag.name;
-      i < _this.post.tags.length - 1 ? _this.tags += ', ' : '';
+    this.post.tags.forEach(function (tag) {
+      _this.tags.push(tag.name);
     });
   }
 });
@@ -2146,11 +2145,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'PostPage',
   data: function data() {
     return {
-      post: {}
+      post: {},
+      posts: []
     };
   },
   created: function created() {
@@ -2158,6 +2178,16 @@ __webpack_require__.r(__webpack_exports__);
 
     axios.get('/api/posts/' + this.$route.params.slug).then(function (response) {
       _this.post = response.data;
+    });
+    axios.get('/api/posts').then(function (response) {
+      _this.posts = response.data;
+
+      _this.posts.forEach(function (post) {
+        post.tagNames = [];
+        post.tags.forEach(function (tag) {
+          post.tagNames.push(tag.name);
+        });
+      });
     });
   }
 });
@@ -2252,7 +2282,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".post[data-v-001c8681] {\n  width: 70%;\n  padding-right: 2rem;\n}\n.post .title[data-v-001c8681] {\n  font-size: 1.7rem;\n}\n.post .cover[data-v-001c8681] {\n  margin: 2rem 0;\n  width: 100%;\n  height: 30vw;\n}\n.post .cover .img[data-v-001c8681] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\n.post .content[data-v-001c8681] {\n  letter-spacing: 1px;\n  font-weight: 200;\n  line-height: 1.5rem;\n}\n.side-posts[data-v-001c8681] {\n  width: 30%;\n  height: 800px;\n  background-color: grey;\n}", ""]);
+exports.push([module.i, ".post[data-v-001c8681] {\n  margin-bottom: 2rem;\n}\n.post .title[data-v-001c8681] {\n  font-size: 1.7rem;\n}\n.post .cover[data-v-001c8681] {\n  margin: 2rem 0;\n  width: 100%;\n  height: 50vw;\n}\n.post .cover .img[data-v-001c8681] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\n.post .content[data-v-001c8681] {\n  letter-spacing: 1px;\n  font-weight: 200;\n  line-height: 1.5rem;\n}\n@media screen and (min-width: 768px) {\n.post[data-v-001c8681] {\n    width: 70%;\n    padding-right: 2rem;\n}\n.post .cover[data-v-001c8681] {\n    height: 30vw;\n}\n}\n.side-posts[data-v-001c8681] {\n  border-top: 0.5px solid rgba(0, 0, 0, 0.5);\n}\n.side-posts .post-small[data-v-001c8681] {\n  margin-bottom: 1.5rem;\n}\n.side-posts .post-small *[data-v-001c8681] {\n  color: black;\n}\n.side-posts .post-small .cover[data-v-001c8681] {\n  width: 100%;\n  height: 40vw;\n}\n.side-posts .post-small .cover .img[data-v-001c8681] {\n  width: 100%;\n  height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  -o-object-position: center;\n     object-position: center;\n}\n.side-posts .post-small .text .title[data-v-001c8681] {\n  font-size: 1.2rem;\n  margin: 0.8rem 0 0.5rem;\n}\n.side-posts .post-small .text .content-info .category[data-v-001c8681] {\n  line-height: 1.7rem;\n}\n.side-posts .post-small a:hover .title[data-v-001c8681] {\n  text-decoration: underline;\n}\n@media screen and (min-width: 768px) {\n.side-posts[data-v-001c8681] {\n    width: 30%;\n    padding-left: 2rem;\n    border-top: none;\n    border-left: 0.5px solid rgba(0, 0, 0, 0.5);\n}\n.side-posts .cover[data-v-001c8681] {\n    max-height: 15vw;\n}\n}", ""]);
 
 // exports
 
@@ -3560,9 +3590,11 @@ var render = function () {
                       ]),
                     ]),
                     _vm._v(" "),
-                    this.tags
+                    _vm.tags.length > 0
                       ? _c("div", { staticClass: "tags" }, [
-                          _c("p", [_vm._v("Tags: " + _vm._s(this.tags))]),
+                          _c("p", [
+                            _vm._v("Tags: " + _vm._s(_vm.tags.join(", "))),
+                          ]),
                         ])
                       : _vm._e(),
                   ]),
@@ -3616,9 +3648,11 @@ var render = function () {
                       ]),
                     ]),
                     _vm._v(" "),
-                    this.tags
+                    _vm.tags.length > 0
                       ? _c("div", { staticClass: "tags" }, [
-                          _c("p", [_vm._v("Tags: " + _vm._s(this.tags))]),
+                          _c("p", [
+                            _vm._v("Tags: " + _vm._s(_vm.tags.join(", "))),
+                          ]),
                         ])
                       : _vm._e(),
                   ]),
@@ -3803,7 +3837,78 @@ var render = function () {
       }),
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "side-posts" }),
+    _c(
+      "div",
+      { staticClass: "side-posts" },
+      [
+        _c("h3", [_vm._v("Gli ultimi articoli")]),
+        _vm._v(" "),
+        _vm._l(_vm.posts, function (sidePost) {
+          return _c("div", { key: sidePost.id, staticClass: "post-small" }, [
+            _c(
+              "div",
+              { staticClass: "content" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    attrs: {
+                      to: { name: "post", params: { slug: sidePost.slug } },
+                    },
+                  },
+                  [
+                    _c("div", { staticClass: "cover" }, [
+                      _c("img", {
+                        staticClass: "img",
+                        attrs: {
+                          src: sidePost.image
+                            ? "/storage/" + sidePost.image
+                            : "http://placehold.jp/606060/ffffff/400x250.png?text=Image%20preview&css=%7B%22border-radius%22%3A%2215px%22%7D",
+                          alt: sidePost.title + " cover",
+                        },
+                      }),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "text" }, [
+                      _c("h3", { staticClass: "title" }, [
+                        _vm._v(_vm._s(sidePost.title)),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "content-info" }, [
+                        _c("div", { staticClass: "category" }, [
+                          _c("span", [
+                            _vm._v(
+                              _vm._s(
+                                sidePost.category
+                                  ? sidePost.category.name
+                                  : "Nessuna categoria"
+                              )
+                            ),
+                          ]),
+                        ]),
+                        _vm._v(" "),
+                        sidePost.tagNames.length > 0
+                          ? _c("div", { staticClass: "tags" }, [
+                              _c("p", [
+                                _vm._v(
+                                  "Tags: " +
+                                    _vm._s(sidePost.tagNames.join(", "))
+                                ),
+                              ]),
+                            ])
+                          : _vm._e(),
+                      ]),
+                    ]),
+                  ]
+                ),
+              ],
+              1
+            ),
+          ])
+        }),
+      ],
+      2
+    ),
   ])
 }
 var staticRenderFns = []

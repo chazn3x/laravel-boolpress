@@ -11,8 +11,8 @@
                         <div class="category">
                             <span>{{ post.category ? post.category.name : 'Nessuna categoria' }}</span>
                         </div>
-                        <div class="tags" v-if="this.tags">
-                            <p>Tags: {{ this.tags }}</p>
+                        <div class="tags" v-if="tags.length > 0">
+                            <p>Tags: {{ tags.join(', ') }}</p>
                         </div>
                     </div>
                 </div>
@@ -31,8 +31,8 @@
                         <div class="category">
                             <span>{{ post.category ? post.category.name : 'Nessuna categoria' }}</span>
                         </div>
-                        <div class="tags" v-if="this.tags">
-                            <p>Tags: {{ this.tags }}</p>
+                        <div class="tags" v-if="tags.length > 0">
+                            <p>Tags: {{ tags.join(', ') }}</p>
                         </div>
                     </div>
                 </div>
@@ -47,13 +47,12 @@ export default {
     props: { index: Number, post: Object },
     data() {
         return {
-            tags: ''
+            tags: []
         }
     },
     created() {
-        this.post.tags.forEach((tag, i) => {
-            this.tags += tag.name
-            i < this.post.tags.length -1 ? this.tags += ', ' : ''
+        this.post.tags.forEach(tag => {
+            this.tags.push(tag.name)
         })
     }
 }
