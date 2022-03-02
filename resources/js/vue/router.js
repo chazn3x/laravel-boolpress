@@ -5,6 +5,7 @@ Vue.use(VueRouter)
 
 import Home from './pages/Home'
 import PostPage from './pages/PostPage'
+import PageNotFound from './pages/PageNotFound.vue'
 
 const router = new VueRouter({
     mode: 'history',
@@ -18,6 +19,11 @@ const router = new VueRouter({
             path: '/posts/:slug',
             name: 'post',
             component: PostPage
+        },
+        {
+            path: '*',
+            name: '404-page',
+            component: PageNotFound
         }
     ]
 })

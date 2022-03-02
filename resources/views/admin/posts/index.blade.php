@@ -90,6 +90,7 @@
                                 <span> Nessuno</span>
                             @endif
                         </p>
+                        <p>Commenti da approvare: {{ count( $post->comments->filter( fn($comment) => $comment->approved == 0 ) ) }}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             @if ($post->category)
                                 <span>Categoria: <a href="{{ route( 'categories.show', $post->category->id ) }}">{{ $post->category->name }}</a></span>

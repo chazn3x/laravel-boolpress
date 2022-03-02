@@ -80,6 +80,43 @@
                     <p class="text-muted">
                         Slug: /{{ $post->slug }}
                     </p>
+
+                    {{-- Comments --}}
+                    <div id="comments">
+                        <h3 class="mb-3">Commenti</h3>
+                        @if ( count($post->comments) > 0 )
+                            <table class="table table-hover">
+                                <tbody>
+                                    @foreach ($post->comments as $comment)
+                                        <tr>
+                                            <td>{{ $comment->content }}</td>
+                                            <td>
+                                                @if (!$comment->approved)
+                                                    <form action="{{ route( 'comments.update', $comment->id ) }}" method="POST">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <button type="submit" title="Approva commento" class="btn btn-success">Approva</button>
+                                                    </form>
+                                                @else
+                                                    <span class="text-muted">Approvato</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <form action="{{ route( 'comments.destroy', $comment->id ) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" title="Elimina commento" class="btn btn-danger">Elimina</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <span>Nessun commento</span>
+                        @endif
+                    </div>
+
                     {{-- Publish --}}
                     <div class="_publish-btn text-right">
                         @if ( !$post->published )

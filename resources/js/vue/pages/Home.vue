@@ -27,7 +27,6 @@ export default {
 
 <style lang="scss" scoped>
 .posts-wrapper {
-    background-color: #fff;
     padding: .5rem;
     display: flex;
     flex-wrap: wrap;

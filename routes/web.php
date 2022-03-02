@@ -21,6 +21,8 @@ Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function (
     Route::resource('posts', 'PostsController');
     Route::resource('categories', 'CategoriesController');
     Route::resource('tags', 'TagsController');
+    Route::patch('comments/{comment}', 'CommentController@update')->name('comments.update');
+    Route::delete('comments/{comment}', 'CommentController@destroy')->name('comments.destroy');
 
 });
 

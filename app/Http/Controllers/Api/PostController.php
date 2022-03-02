@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Post;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -16,7 +15,11 @@ class PostController extends Controller
 
     public function show($slug) {
 
-        $post = Post::where('slug', $slug)->with(['category', 'tags'])->first();
+        $post = Post::where('slug', $slug)->with(['category', 'tags', 'comments' => fn($query) => $query->where('approved', true)])->first();
+
+        if ( empty($post) ) {
+            return response()->json(['message' => 'Post not found'], 404);
+        }
 
         return response()->json($post);
 
