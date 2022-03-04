@@ -31,7 +31,7 @@
                         {{-- Contenuto --}}
                         <div class="form-group">
                             <label for="content">Contenuto:</label>
-                            <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="content" placeholder="Inserisci il contenuto" rows="6">{{ old('content') ?? $post->content }}</textarea>
+                            <textarea class="form-control @error('content') is-invalid @enderror" name="content" id="_textarea" placeholder="Inserisci il contenuto" rows="6">{{ old('content') ?? $post->content }}</textarea>
                             @error('content')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror

@@ -1,5 +1,20 @@
 require('./bootstrap');
 
+// Check editor
+if (document.getElementById('_textarea')) {
+    
+    const CKEditor = require('@ckeditor/ckeditor5-build-classic');
+    
+    CKEditor
+        .create( document.getElementById('_textarea') )
+        .then( editor => {
+            console.log( 'Editor was initialized', editor );
+        } )
+        .catch( err => {
+            console.error( err.stack );
+        } );
+}
+
 // Submit event
 if (document.getElementById('_update')) {
     const form = document.getElementById('_update')
